@@ -1,0 +1,24 @@
+#+TITLE: Array
+
+* Table of contents :TOC_2:
+- [[#binary-search][Binary Search]]
+- [[#permutations][Permutations]]
+- [[#combinations][Combinations]]
+- [[#intervals][Intervals]]
+
+* [[https://www.programiz.com/dsa/binary-search][Binary Search]]
+- [[https://leetcode.com/problems/binary-search/][Problem]]
+
+* Permutations
+#+begin_example
+[1, 2, 3] -> [(1, 2, 3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2)]
+#+end_example
+
+* Combinations
+#+begin_example
+[1, 2, 3], 3 -> [(1, 2, 3)]
+[1, 2, 3], 2 -> [(1, 2), (1, 3), (2, 3)]
+[1, 2, 3], 1 -> [(1,), (2), (3,)]
+#+end_example
+
+* Intervals

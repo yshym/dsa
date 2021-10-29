@@ -1,0 +1,13 @@
+#+TITLE: Linked List
+
+[[https://www.programiz.com/dsa/linked-list][Click me]]
+
+* Table of contents :TOC_2:
+- [[#cycles][Cycles]]
+- [[#intersections][Intersections]]
+
+* [[https://www.programiz.com/dsa/linked-list-types#circular][Cycles]]
+- [[https://leetcode.com/problems/linked-list-cycle/][Problem]]
+
+* Intersections
+- [[https://leetcode.com/problems/intersection-of-two-linked-lists/][Problem]]

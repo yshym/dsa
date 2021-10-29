@@ -1,0 +1,166 @@
+#+TITLE: Tree
+
+[[https://www.programiz.com/dsa/trees][Click me]]
+
+* Table of contents :TOC_2:
+- [[#prefix-tree-trie][Prefix Tree (Trie)]]
+- [[#binary-seach-tree][Binary Seach Tree]]
+  - [[#traversals][Traversals]]
+
+* [[https://www.freecodecamp.org/news/trie-prefix-tree-algorithm-ee7ab3fe3413/?utm_source=pocket_mylist][Prefix Tree (Trie)]]
+#+begin_src python :session :results output
+class Trie:
+    def __init__(self):
+        """
+        Initialize the data structure.
+        """
+        self.root = {}
+        self.end = "#"
+
+    def insert(self, word: str) -> None:
+        """
+        Insert a word into the trie.
+        """
+        node = self.root
+        for c in word:
+            node = node.setdefault(c, {})
+        node[self.end] = self.end
+
+    def search(self, word: str) -> bool:
+        """
+        Return if the word is in the trie.
+        """
+        node = self.root
+        for c in word:
+            if c not in node:
+                return False
+            node = node[c]
+        return self.end in node
+
+    def startsWith(self, prefix: str) -> bool:
+        """
+        Return if there is any word in the trie that starts with the given prefix.
+        """
+        node = self.root
+        for c in prefix:
+            if c not in node:
+                return False
+            node = node[c]
+        return True
+
+    def all_words(self):
+        """
+        Return all the words in the trie.
+        """
+        node = self.root
+        ans = []
+        self._collect(node, "", ans)
+        return ans
+
+    def _collect(self, node, path, ans):
+        for k in node:
+            if k == self.end:
+                ans.append(path)
+                continue
+            self._collect(node[k], path + k, ans)
+
+    def words_with_prefix(self, prefix: str):
+        """
+        Return all possible words with common prefix.
+        """
+        node = self.root
+        for c in prefix:
+            if c not in node:
+                return []
+            node = node[c]
+        ans = []
+        self._words_with_prefix_helper(node, prefix, ans)
+        return ans
+
+    def _words_with_prefix_helper(self, node, prefix, ans):
+        for k in node:
+            if k == self.end:
+                ans.append(prefix)
+                continue
+            self._words_with_prefix_helper(node[k], prefix + k, ans)
+
+    def longest_prefix(self, s):
+        """
+        Return longest prefix of s in the trie.
+        """
+        ans = ""
+        if not s:
+            return ans
+        node = self.root
+        for c in s:
+            if c not in node:
+                return ans
+            node = node[c]
+            ans += c
+        return ans
+
+
+trie = Trie()
+words = [
+    "bag",
+    "baggage",
+    "bags",
+    "backpack",
+    "badminton",
+]
+for w in words:
+    trie.insert(w)
+print(trie.words_with_prefix("bag"))
+#+end_src
+
+#+RESULTS:
+: ['bag', 'baggage', 'bags']
+
+* [[https://www.programiz.com/dsa/binary-search-tree][Binary Seach Tree]]
+** [[https://www.programiz.com/dsa/tree-traversal][Traversals]]
+*** Preorder
+root, left, right
+
+#+begin_example
+ __0__
+/     \
+1     2
+#+end_example
+
+0, 1, 2
+
+*** Inorder
+left, root, right
+
+
+#+begin_example
+ __0__
+/     \
+1     2
+#+end_example
+
+1, 0, 2
+
+*** Postorder
+left, right, root
+
+#+begin_example
+ __0__
+/     \
+1     2
+#+end_example
+
+1, 2, 0
+
+*** Level order
+level 0 ([root]) + level 1 + ... + level n - 1
+
+#+begin_example
+   __0__
+  /     \
+ _1_   _2_
+/   \ /   \
+3   4 5   6
+#+end_example
+
+0, 1, 2, 3, 4, 5, 6

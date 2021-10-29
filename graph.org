@@ -1,0 +1,100 @@
+#+TITLE: Graph
+
+* Table of contents :TOC_2:
+- [[#adjacency-list][Adjacency list]]
+- [[#adjacency-matrix][Adjacency matrix]]
+- [[#search][Search]]
+  - [[#depth-first][Depth-first]]
+  - [[#breadth-first][Breadth-first]]
+- [[#find-shortest-path][Find shortest path]]
+  - [[#dijkstras-algorithm][Dijkstra's algorithm]]
+  - [[#bellman-fords-algorithm][Bellman Ford's algorithm]]
+- [[#strongly-connected-components][Strongly connected components]]
+- [[#topolgical-sort][Topolgical sort]]
+
+* [[https://www.programiz.com/dsa/graph-adjacency-list][Adjacency list]]
+* [[https://www.programiz.com/dsa/graph-adjacency-matrix][Adjacency matrix]]
+* Search
+** [[https://www.programiz.com/dsa/graph-dfs][Depth-first]]
+#+begin_src python :results output
+def dfs(graph, n, visited):
+    visited.add(n)
+    print(n, end=" ")
+    for nei in graph[n]:
+        if not nei in visited:
+            dfs(graph, nei, visited)
+
+
+g = [[1, 2], [2], [0]]
+dfs(g, 0, set())
+#+end_src
+
+#+RESULTS:
+: 0 1 2
+
+*** White-gray-black
+
+** [[https://www.programiz.com/dsa/graph-bfs][Breadth-first]]
+#+begin_src python :results output
+from collections import deque
+
+
+def bfs(graph, n):
+    visited, q = set([n]), deque([n])
+    while q:
+        v = q.popleft()
+        print(v, end=" ")
+        for nei in graph[v]:
+            if nei not in visited:
+                visited.add(nei)
+                q.append(nei)
+
+
+g = [[1, 2], [2], [0]]
+bfs(g, 0)
+#+end_src
+
+#+RESULTS:
+: 0 1 2
+
+* Find shortest path
+** [[https://www.programiz.com/dsa/dijkstra-algorithm][Dijkstra's algorithm]]
+*** Using heap
+#+begin_src python :results output
+from heapq import heappop, heappush
+
+
+def dijkstra(graph, fr, to):
+    q, visited, costs = [(0, fr, [])], set(), {fr: 0}
+    while q:
+        (cost, u, path) = heappop(q)
+        if u in visited:
+            continue
+        visited.add(u)
+        path.append(u)
+        if u == to:
+            return (cost, path)
+        for c, v in graph[u]:
+            if v in visited:
+                continue
+            pc = costs.get(v, float("inf"))
+            nc = cost + c
+            if nc < pc:
+                costs[v] = nc
+                heappush(q, (nc, v, path))
+    return float("inf"), None
+
+
+g = [[(6, 1), (2, 2)], [(2, 3)], [(3, 1), (5, 3)], []]
+cost, path = dijkstra(g, 0, 3)
+print(f"{cost=}, {path=}")
+#+end_src
+
+#+RESULTS:
+: cost=7, path=[0, 2, 1, 3]
+
+** [[https://www.programiz.com/dsa/bellman-ford-algorithm][Bellman Ford's algorithm]]
+* Strongly connected components
+- [[https://leetcode.com/problems/critical-connections-in-a-network/][Problem]]
+
+* [[https://leetcode.com/discuss/general-discussion/1078072/introduction-to-topological-sort][Topolgical sort]]
