@@ -1,6 +1,4 @@
-#+TITLE: Linked List
-
-[[https://www.programiz.com/dsa/linked-list][Click me]]
+#+TITLE: [[https://www.programiz.com/dsa/linked-list][Linked List]]
 
 * Table of contents :TOC_2:
 - [[#cycles][Cycles]]

@@ -4,6 +4,7 @@
 - [[file:array.org][Array]]
 - [[file:string.org][String]]
 - [[file:hash-map.org][Hash Map]]
+- [[file:linked-list.org][Linked List]]
 - [[file:graph.org][Graph]]
 - [[file:stack.org][Stack]]
 - [[file:queue.org][Queue]]
