@@ -1,3 +1,1 @@
-#+TITLE: Heap
-
-[[https://www.programiz.com/dsa/heap-data-structure][Click me]]
+#+TITLE: [[https://www.programiz.com/dsa/heap-data-structure][Heap]]

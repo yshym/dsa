@@ -1,6 +1,4 @@
-#+TITLE: Tree
-
-[[https://www.programiz.com/dsa/trees][Click me]]
+#+TITLE: [[https://www.programiz.com/dsa/trees][Tree]]
 
 * Table of contents :TOC_2:
 - [[#prefix-tree-trie][Prefix Tree (Trie)]]

@@ -1,4 +1,4 @@
-#+TITLE: Graph
+#+TITLE: [[https://www.programiz.com/dsa/graph][Graph]]
 
 * Table of contents :TOC_2:
 - [[#adjacency-list][Adjacency list]]
