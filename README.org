@@ -1,0 +1,300 @@
+#+TITLE: Data Structures and Algorithms
+
+* Table of contents :TOC_2:
+- [[#data-structures-and-related-algorithms][Data structures and related algorithms]]
+  - [[#array][Array]]
+  - [[#string][String]]
+  - [[#hash-map][Hash Map]]
+  - [[#linked-list][Linked List]]
+  - [[#graph][Graph]]
+  - [[#stack][Stack]]
+  - [[#queue][Queue]]
+  - [[#tree][Tree]]
+  - [[#binary-search-tree][Binary Search Tree]]
+  - [[#heap][Heap]]
+- [[#general-algorithms-and-techniques][General algorithms and techniques]]
+  - [[#two-pointers][Two Pointers]]
+  - [[#dynamic-programming][Dynamic Programming]]
+  - [[#divide-and-conquer][Divide and Conquer]]
+  - [[#backtracking][Backtracking]]
+  - [[#greedy][Greedy]]
+
+* Data structures and related algorithms
+** Array
+*** [[https://www.programiz.com/dsa/binary-search][Binary Search]]
+- [[https://leetcode.com/problems/binary-search/][Problem]]
+
+*** Permutations
+  #+begin_example
+  [1, 2, 3] -> [(1, 2, 3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2)]
+  #+end_example
+
+*** Combinations
+  #+begin_example
+  [1, 2, 3], 3 -> [(1, 2, 3)]
+  [1, 2, 3], 2 -> [(1, 2), (1, 3), (2, 3)]
+  [1, 2, 3], 1 -> [(1,), (2), (3,)]
+  #+end_example
+
+*** Intervals
+** String
+** [[https://www.programiz.com/dsa/hash-table][Hash Map]]
+** [[https://www.programiz.com/dsa/linked-list][Linked List]]
+*** [[https://www.programiz.com/dsa/linked-list-types#circular][Cycles]]
+- [[https://leetcode.com/problems/linked-list-cycle/][Problem]]
+
+*** Intersections
+- [[https://leetcode.com/problems/intersection-of-two-linked-lists/][Problem]]
+
+** [[https://www.programiz.com/dsa/graph][Graph]]
+*** [[https://www.programiz.com/dsa/graph-adjacency-list][Adjacency list]]
+*** [[https://www.programiz.com/dsa/graph-adjacency-matrix][Adjacency matrix]]
+*** Search
+**** [[https://www.programiz.com/dsa/graph-dfs][Depth-first]]
+#+begin_src python :results output
+def dfs(graph, n, visited):
+    visited.add(n)
+    print(n, end=" ")
+    for nei in graph[n]:
+        if not nei in visited:
+            dfs(graph, nei, visited)
+
+
+g = [[1, 2], [2], [0]]
+dfs(g, 0, set())
+#+end_src
+
+#+RESULTS:
+: 0 1 2
+
+***** White-gray-black
+
+**** [[https://www.programiz.com/dsa/graph-bfs][Breadth-first]]
+#+begin_src python :results output
+from collections import deque
+
+
+def bfs(graph, n):
+    visited, q = set([n]), deque([n])
+    while q:
+        v = q.popleft()
+        print(v, end=" ")
+        for nei in graph[v]:
+            if nei not in visited:
+                visited.add(nei)
+                q.append(nei)
+
+
+g = [[1, 2], [2], [0]]
+bfs(g, 0)
+#+end_src
+
+#+RESULTS:
+: 0 1 2
+
+*** Find shortest path
+**** [[https://www.programiz.com/dsa/dijkstra-algorithm][Dijkstra's algorithm]]
+***** Using heap
+#+begin_src python :results output
+from heapq import heappop, heappush
+
+
+def dijkstra(graph, fr, to):
+    q, visited, costs = [(0, fr, [])], set(), {fr: 0}
+    while q:
+        (cost, u, path) = heappop(q)
+        if u in visited:
+            continue
+        visited.add(u)
+        path.append(u)
+        if u == to:
+            return (cost, path)
+        for c, v in graph[u]:
+            if v in visited:
+                continue
+            pc = costs.get(v, float("inf"))
+            nc = cost + c
+            if nc < pc:
+                costs[v] = nc
+                heappush(q, (nc, v, path))
+    return float("inf"), None
+
+
+g = [[(6, 1), (2, 2)], [(2, 3)], [(3, 1), (5, 3)], []]
+cost, path = dijkstra(g, 0, 3)
+print(f"{cost=}, {path=}")
+#+end_src
+
+#+RESULTS:
+: cost=7, path=[0, 2, 1, 3]
+
+**** [[https://www.programiz.com/dsa/bellman-ford-algorithm][Bellman Ford's algorithm]]
+*** Strongly connected components
+- [[https://leetcode.com/problems/critical-connections-in-a-network/][Problem]]
+
+*** [[https://leetcode.com/discuss/general-discussion/1078072/introduction-to-topological-sort][Topolgical sort]]
+** [[https://www.programiz.com/dsa/stack][Stack]]
+** [[https://www.programiz.com/dsa/queue][Queue]]
+** [[https://www.programiz.com/dsa/trees][Tree]]
+*** [[https://www.freecodecamp.org/news/trie-prefix-tree-algorithm-ee7ab3fe3413/?utm_source=pocket_mylist][Prefix tree (Trie)]]
+#+begin_src python :session :results output
+class Trie:
+    def __init__(self):
+        """
+        Initialize the data structure.
+        """
+        self.root = {}
+        self.end = "#"
+
+    def insert(self, word: str) -> None:
+        """
+        Insert a word into the trie.
+        """
+        node = self.root
+        for c in word:
+            node = node.setdefault(c, {})
+        node[self.end] = self.end
+
+    def search(self, word: str) -> bool:
+        """
+        Return if the word is in the trie.
+        """
+        node = self.root
+        for c in word:
+            if c not in node:
+                return False
+            node = node[c]
+        return self.end in node
+
+    def startsWith(self, prefix: str) -> bool:
+        """
+        Return if there is any word in the trie that starts with the given prefix.
+        """
+        node = self.root
+        for c in prefix:
+            if c not in node:
+                return False
+            node = node[c]
+        return True
+
+    def all_words(self):
+        """
+        Return all the words in the trie.
+        """
+        node = self.root
+        ans = []
+        self._collect(node, "", ans)
+        return ans
+
+    def _collect(self, node, path, ans):
+        for k in node:
+            if k == self.end:
+                ans.append(path)
+                continue
+            self._collect(node[k], path + k, ans)
+
+    def words_with_prefix(self, prefix: str):
+        """
+        Return all possible words with common prefix.
+        """
+        node = self.root
+        for c in prefix:
+            if c not in node:
+                return []
+            node = node[c]
+        ans = []
+        self._words_with_prefix_helper(node, prefix, ans)
+        return ans
+
+    def _words_with_prefix_helper(self, node, prefix, ans):
+        for k in node:
+            if k == self.end:
+                ans.append(prefix)
+                continue
+            self._words_with_prefix_helper(node[k], prefix + k, ans)
+
+    def longest_prefix(self, s):
+        """
+        Return longest prefix of s in the trie.
+        """
+        ans = ""
+        if not s:
+            return ans
+        node = self.root
+        for c in s:
+            if c not in node:
+                return ans
+            node = node[c]
+            ans += c
+        return ans
+
+
+trie = Trie()
+words = [
+    "bag",
+    "baggage",
+    "bags",
+    "backpack",
+    "badminton",
+]
+for w in words:
+    trie.insert(w)
+print(trie.words_with_prefix("bag"))
+#+end_src
+
+#+RESULTS:
+: ['bag', 'baggage', 'bags']
+
+** [[https://www.programiz.com/dsa/binary-search-tree][Binary Search Tree]]
+*** [[https://www.programiz.com/dsa/tree-traversal][Traversals]]
+**** Preorder
+root, left, right
+
+   0
+1     2
+
+0, 1, 2
+
+**** Inorder
+left, root, right
+
+
+#+begin_example
+ __0__
+/     \
+1     2
+#+end_example
+
+1, 0, 2
+
+**** Postorder
+left, right, root
+
+#+begin_example
+ __0__
+/     \
+1     2
+#+end_example
+
+1, 2, 0
+
+**** Level order
+level 0 ([root]) + level 1 + ... + level n
+
+#+begin_example
+   __0__
+  /     \
+ _1_   _2_
+/   \ /   \
+3   4 5   6
+#+end_example
+
+0, 1, 2, 3, 4, 5, 6
+
+** [[https://www.programiz.com/dsa/heap-data-structure][Heap]]
+* General algorithms and techniques
+** [[https://leetcode.com/articles/two-pointer-technique/][Two Pointers]]
+** [[https://www.programiz.com/dsa/dynamic-programming][Dynamic Programming]]
+** [[https://leetcode.com/explore/learn/card/recursion-ii/470/divide-and-conquer/2897/][Divide and Conquer]]
+** [[https://leetcode.com/explore/learn/card/recursion-ii/472/backtracking/2654/][Backtracking]]
+** [[https://www.programiz.com/dsa/greedy-algorithm][Greedy]]
