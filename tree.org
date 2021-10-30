@@ -60,12 +60,8 @@ class BST:
             root.right = cls.delete(root.right, val)
         else:
             # if the node has one child or no children
-            if not root.left:
-                temp = root.right
-                root = None
-                return temp
-            elif not root.right:
-                temp = root.left
+            if not root.left or not root.right:
+                temp = root.right if not root.left else root.left
                 root = None
                 return temp
             # if the node has two children
