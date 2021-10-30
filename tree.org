@@ -117,48 +117,47 @@ print(trie.words_with_prefix("bag"))
 * [[https://www.programiz.com/dsa/binary-search-tree][Binary Seach Tree]]
 ** [[https://www.programiz.com/dsa/tree-traversal][Traversals]]
 *** Preorder
+#+begin_example
 root, left, right
 
-#+begin_example
- __0__
+ __1__
 /     \
-1     2
-#+end_example
-
-0, 1, 2
-
-*** Inorder
-left, root, right
-
-
-#+begin_example
- __0__
-/     \
-1     2
-#+end_example
+0     2
 
 1, 0, 2
+#+end_example
+
+*** Inorder
+#+begin_example
+left, root, right
+
+ __1__
+/     \
+0     2
+
+0, 1, 2
+#+end_example
 
 *** Postorder
+#+begin_example
 left, right, root
 
-#+begin_example
- __0__
+ __1__
 /     \
-1     2
-#+end_example
+0     2
 
-1, 2, 0
+0, 2, 1
+#+end_example
 
 *** Level order
+#+begin_example
 level 0 ([root]) + level 1 + ... + level n - 1
 
-#+begin_example
-   __0__
+   __3__
   /     \
- _1_   _2_
+ _1_   _5_
 /   \ /   \
-3   4 5   6
-#+end_example
+0   2 4   6
 
-0, 1, 2, 3, 4, 5, 6
+3, 1, 5, 0, 2, 4, 6
+#+end_example
