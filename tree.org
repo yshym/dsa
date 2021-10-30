@@ -40,6 +40,7 @@ class BST:
 
     @classmethod
     def _inorder_successor(cls, root):
+        """Find inorder successor."""
         cur = root
         # find the leftmost leaf
         while cur.left:
@@ -48,6 +49,7 @@ class BST:
 
     @classmethod
     def delete(cls, root, val):
+        """Delete a node."""
         # return if tree is empty
         if not root:
             return None
