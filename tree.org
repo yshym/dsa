@@ -2,10 +2,13 @@
 
 * Table of contents :TOC_2:
 - [[#prefix-tree-trie][Prefix Tree (Trie)]]
+  - [[#implementation][Implementation]]
 - [[#binary-seach-tree][Binary Seach Tree]]
+  - [[#implementation-1][Implementation]]
   - [[#traversals][Traversals]]
 
 * [[https://www.freecodecamp.org/news/trie-prefix-tree-algorithm-ee7ab3fe3413/?utm_source=pocket_mylist][Prefix Tree (Trie)]]
+** Implementation
 #+begin_src python :session :results output
 class Trie:
     def __init__(self):
@@ -115,6 +118,89 @@ print(trie.words_with_prefix("bag"))
 : ['bag', 'baggage', 'bags']
 
 * [[https://www.programiz.com/dsa/binary-search-tree][Binary Seach Tree]]
+** Implementation
+#+begin_src python :session :results output
+class TreeNode:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+class BST:
+    @classmethod
+    def inorder(cls, root):
+        """Inorder traversal."""
+        if root:
+            cls.inorder(root.left)
+            print(root.val, end=" ")
+            cls.inorder(root.right)
+
+    @classmethod
+    def insert(cls, root, val):
+        """Insert a node."""
+        # return new node if tree is empty
+        if not root:
+            return TreeNode(val)
+        if val < root.val:
+            root.left = cls.insert(root.left, val)
+        else:
+            root.right = cls.insert(root.right, val)
+        return root
+
+    @classmethod
+    def _inorder_successor(cls, root):
+        cur = root
+        # find the leftmost leaf
+        while cur.left:
+            cur = cur.left
+        return cur
+
+    @classmethod
+    def delete(cls, root, val):
+        # return if tree is empty
+        if not root:
+            return None
+        # find the node to be deleted
+        if val < root.val:
+            root.left = cls.delete(root.left, val)
+        elif val > root.val:
+            root.right = cls.delete(root.right, val)
+        else:
+            # if the node has one child or no children
+            if not root.left:
+                temp = root.right
+                root = None
+                return temp
+            elif not root.right:
+                temp = root.left
+                root = None
+                return temp
+            # if the node has two children
+            # place the inorder successor in position of the node to be deleted
+            suc = cls._inorder_successor(root.right)
+            root.val = suc.val
+            root.right = cls.delete(root.right, suc.val)
+        return root
+
+
+root = None
+values = [3, 1, 5, 0, 2, 4, 6]
+for v in values:
+    root = BST.insert(root, v)
+print("Inorder traversal: ", end=" ")
+BST.inorder(root)
+print("\nDelete 4")
+BST.delete(root, 4)
+print("Inorder traversal: ", end=" ")
+BST.inorder(root)
+#+end_src
+
+#+RESULTS:
+: Inorder traversal:  0 1 2 3 4 5 6
+: Delete 4
+: Inorder traversal:  0 1 2 3 5 6
+
 ** [[https://www.programiz.com/dsa/tree-traversal][Traversals]]
 *** Preorder
 #+begin_example
