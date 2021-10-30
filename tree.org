@@ -153,6 +153,7 @@ The space complexity for all the operations is ~O(n)~
 * [[https://www.freecodecamp.org/news/trie-prefix-tree-algorithm-ee7ab3fe3413/?utm_source=pocket_mylist][Prefix Tree (Trie)]]
 ** Implementation
 #+begin_src python :session :results output
+from __future__ import annotations
 from collections import defaultdict
 
 
@@ -162,25 +163,46 @@ class Trie:
         self.is_word = False
 
     def insert(self, word: str) -> None:
-        cur = self
+        """Insert a word."""
+        t = self
         for c in word:
-            cur = cur.children[c]
-        cur.is_word = True
+            t = t.children[c]
+        t.is_word = True
+
+    def _delete_helper(self, t: Trie, word: str, i: int) -> bool:
+        c = word[i]
+        if not c in t.children:
+            return False
+        ct = t.children[c]
+        # last char and end of a word
+        if i == len(word) - 1 and ct.is_word:
+            t.children.pop(c)
+            return not ct.children
+        if self._delete_helper(ct, word, i + 1) and not ct.children:
+            t.children.pop(c)
+            return True
+        return False
+
+    def delete(self, word: str) -> None:
+        """Delete a word."""
+        self._delete_helper(self, word, 0)
 
     def search(self, word: str) -> bool:
-        cur = self
+        """Search for a word."""
+        t = self
         for c in word:
-            if c not in cur.children:
+            if c not in t.children:
                 return False
-            cur = cur.children[c]
-        return cur.is_word
+            t = t.children[c]
+        return t.is_word
 
-    def startsWith(self, prefix: str) -> bool:
-        cur = self
+    def starts_with(self, prefix: str) -> bool:
+        """Search for a prefix."""
+        t = self
         for c in prefix:
-            if c not in cur.children:
+            if c not in t.children:
                 return False
-            cur = cur.children[c]
+            t = t.children[c]
         return True
 
 
@@ -195,12 +217,15 @@ words = [
 for w in words:
     trie.insert(w)
 print(f"Word 'bags' exists: {trie.search('bags')}")
-print(f"Prefix 'back' exists: {trie.startsWith('back')}")
+print(f"Prefix 'back' exists: {trie.starts_with('back')}")
+trie.delete("backpack")
+print(f"Prefix 'back' exists: {trie.starts_with('back')}")
 #+end_src
 
 #+RESULTS:
 : Word 'bags' exists: True
 : Prefix 'back' exists: True
+: Prefix 'back' exists: False
 
 ** Complexities
 *** Time Complexity
