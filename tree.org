@@ -10,6 +10,15 @@
   - [[#complexities-1][Complexities]]
 
 * [[https://www.programiz.com/dsa/binary-search-tree][Binary Seach Tree]]
+Binary search tree is a data structure that allows to maintain a sorted list of numbers.
+- It is called a binary tree because each tree node has a maximum of two children.
+- It is called a search tree because it can be used to search for a number in ~O(log n)~ time.
+
+The properties that separate a binary search tree from a regular binary tree are:
+- All nodes of left subtree are less than the root node
+- All nodes of right subtree are greater than or equal to the root node
+- Both subtrees of each node are also BSTs i.e. they have the above two properties
+
 ** [[https://www.programiz.com/dsa/tree-traversal][Traversals]]
 *** Preorder
 #+begin_example
