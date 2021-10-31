@@ -1,6 +1,6 @@
 #+TITLE: Data Structures and Algorithms
 
-* Data structures
+* Data Structures
 - [[file:array.org][Array]]
 - [[file:string.org][String]]
 - [[file:hash-map.org][Hash Map]]
@@ -10,7 +10,7 @@
 - [[file:queue.org][Queue]]
 - [[file:tree.org][Tree]]
 - [[file:heap.org][Heap]]
-* General algorithms
+* Algorithms and Techniques
 - [[https://leetcode.com/articles/two-pointer-technique/][Two Pointers]]
 - [[https://www.programiz.com/dsa/dynamic-programming][Dynamic Programming]]
 - [[https://leetcode.com/explore/learn/card/recursion-ii/470/divide-and-conquer/2897/][Divide and Conquer]]
