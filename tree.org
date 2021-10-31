@@ -87,8 +87,8 @@ class BST:
             root.right = cls.insert(root.right, val)
         return root
 
-    @classmethod
-    def _inorder_successor(cls, root):
+    @staticmethod
+    def _inorder_successor(root):
         """Find inorder successor."""
         cur = root
         # find the leftmost leaf
@@ -139,7 +139,7 @@ BST.inorder(root)
 : Inorder traversal:  0 1 2 3 5 6
 
 ** Complexities
-*** Time Complexity
+*** Time
 | Operation | Average Case | Worst Case |
 |-----------+--------------+------------|
 | Search    | O(log n)     | O(n)       |
@@ -147,8 +147,8 @@ BST.inorder(root)
 | Deletion  | O(log n)     | O(n)       |
 Where ~n~ is the number of nodes in the tree
 
-*** Space Complexity
-The space complexity for all the operations is ~O(n)~
+*** Space
+The space complexity for all the operations is ~O(n)~, where ~n~ is number of nodes
 
 * [[https://www.freecodecamp.org/news/trie-prefix-tree-algorithm-ee7ab3fe3413/?utm_source=pocket_mylist][Prefix Tree (Trie)]]
 ** Implementation
@@ -228,13 +228,13 @@ print(f"Prefix 'back' exists: {trie.starts_with('back')}")
 : Prefix 'back' exists: False
 
 ** Complexities
-*** Time Complexity
+*** Time
 | Operation   | Average Case | Worst Case |
 |-------------+--------------+------------|
-| Search      | O(w)         | O(w)       |
-| Insertion   | O(w)         | O(w)       |
+| Search      | O(s)         | O(s)       |
+| Insertion   | O(s)         | O(s)       |
 | Starts With | O(p)         | O(p)       |
-Where ~n~ is the length of the string and ~p~ is the length of the prefix
+Where ~s~ is the length of the string and ~p~ is the length of the prefix
 
-*** Space Complexity
+*** Space
 The space complexity for all the operations is ~O(n)~, where ~n~ is number of nodes
