@@ -10,9 +10,10 @@
 - [[file:queue.org][Queue]]
 - [[file:tree.org][Tree]]
 - [[file:heap.org][Heap]]
+
 * Algorithms and Techniques
 - [[https://leetcode.com/articles/two-pointer-technique/][Two Pointers]]
-- [[https://www.programiz.com/dsa/dynamic-programming][Dynamic Programming]]
+- [[https://www.programiz.com/dsa/greedy-algorithm][Greedy]]
 - [[https://leetcode.com/explore/learn/card/recursion-ii/470/divide-and-conquer/2897/][Divide and Conquer]]
 - [[https://leetcode.com/explore/learn/card/recursion-ii/472/backtracking/2654/][Backtracking]]
-- [[https://www.programiz.com/dsa/greedy-algorithm][Greedy]]
+- [[https://www.programiz.com/dsa/dynamic-programming][Dynamic Programming]]
