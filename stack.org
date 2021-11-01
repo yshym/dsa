@@ -1,1 +1,44 @@
 #+TITLE: [[https://www.programiz.com/dsa/stack][Stack]]
+
+A stack is a linear data structure that follows the principle
+of Last In First Out (LIFO). This means the last element
+inserted inside the stack is removed first.
+
+* Table of contents :TOC_2:
+- [[#implementation][Implementation]]
+
+* Implementation
+#+begin_src python :session :results output
+class Stack:
+    def __init__(self, arr=[]):
+        self.arr = arr
+
+    def peek(self):
+        return self.arr[-1]
+
+    @property
+    def empty(self):
+        return not self.arr
+
+    def push(self, item):
+        self.arr.append(item)
+
+    def pop(self):
+        return self.arr.pop()
+
+
+s = Stack([1, 2, 3, 4, 5])
+print(f"Stack items: {s.arr}")
+print(f"Pop {s.pop()}: {s.arr}")
+print(f"Peek: {s.peek()}")
+s.push(6)
+print(f"Push 6: {s.arr}")
+print(f"Is empty: {s.empty}")
+#+end_src
+
+#+RESULTS:
+: Stack items: [1, 2, 3, 4, 5]
+: Pop 5: [1, 2, 3, 4]
+: Peek: 4
+: Push 6: [1, 2, 3, 4, 6]
+: Is empty: False

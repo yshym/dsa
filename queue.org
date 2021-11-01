@@ -1,1 +1,68 @@
 #+TITLE: [[https://www.programiz.com/dsa/queue][Queue]]
+
+A queue is a useful data structure in programming. It is similar to the ticket queue outside a cinema hall, where the first person entering the queue is the first person who gets the ticket.
+
+Queue follows the First In First Out (FIFO) rule - the item that goes in first is the item that comes out first.
+
+* Table of contents :TOC_2:
+- [[#implementation][Implementation]]
+
+* Implementation
+#+begin_src python :session :results output
+class ListNode:
+    def __init__(self, val, next=None):
+        self.val = val
+        self.next = next
+
+
+class Queue:
+    def __init__(self, arr=[]):
+        self.head = self.last = None
+        for x in arr:
+            self.enqueue(x)
+
+    def peek(self):
+        return self.head.val
+
+    @property
+    def empty(self):
+        return not self.head
+
+    def enqueue(self, item):
+        node = ListNode(item)
+        if not self.head:
+            self.head = node
+            self.last = self.head
+        else:
+            self.last.next = node
+            self.last = self.last.next
+
+    def dequeue(self):
+        item = self.head.val
+        self.head = self.head.next
+        return item
+
+
+q = Queue([1, 2, 3, 4, 5])
+def queue_items(q):
+    res = []
+    c = q.head
+    while c:
+        res.append(c.val)
+        c = c.next
+    return res
+print(f"Queue items: {queue_items(q)}")
+q.dequeue()
+print(f"Dequeue: {queue_items(q)}")
+print(f"Peek: {q.peek()}")
+q.enqueue(6)
+print(f"Enqueue 6: {queue_items(q)}")
+print(f"Is empty: {q.empty}")
+#+end_src
+
+#+RESULTS:
+: Queue items: [1, 2, 3, 4, 5]
+: Dequeue: [2, 3, 4, 5]
+: Peek: 2
+: Enqueue 6: [2, 3, 4, 5, 6]
+: Is empty: False
