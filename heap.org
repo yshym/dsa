@@ -87,13 +87,13 @@ print(f"Pop: {a}")
 
 * Complexities
 ** Time
-| Operation | Average Case | Worst Case  |
-|-----------+--------------+-------------|
-| Heapify   | O(n log(n))  | O(n log(n)) |
-| Insert    | O(log n)     | O(log n)    |
-| Pop       | O(log n)     | O(log n)    |
-| Delete    | O(n)         | O(n)        |
-| Peek      | O(1)         | O(1)        |
+| Operation | Average Case | Worst Case |
+|-----------+--------------+------------|
+| Heapify   | O(n)         | O(n)       |
+| Insert    | O(log n)     | O(log n)   |
+| Pop       | O(log n)     | O(log n)   |
+| Delete    | O(n)         | O(n)       |
+| Peek      | O(1)         | O(1)       |
 Where ~n~ is the length of the array.
 We assume, that the input for ~Heapify~ operation is arbitrary
 array but the input for other operations is heapified array
