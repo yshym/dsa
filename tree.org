@@ -24,9 +24,9 @@ The properties that separate a binary search tree from a regular binary tree are
 #+begin_example
 root, left, right
 
- __1__
-/     \
-0     2
+  1
+ / \
+0   2
 
 1, 0, 2
 #+end_example
@@ -35,9 +35,9 @@ root, left, right
 #+begin_example
 left, root, right
 
- __1__
-/     \
-0     2
+  1
+ / \
+0   2
 
 0, 1, 2
 #+end_example
@@ -46,9 +46,9 @@ left, root, right
 #+begin_example
 left, right, root
 
- __1__
-/     \
-0     2
+  1
+ / \
+0   2
 
 0, 2, 1
 #+end_example
@@ -57,10 +57,10 @@ left, right, root
 #+begin_example
 level 0 ([root]) + level 1 + ... + level n - 1
 
-   __3__
-  /     \
- _1_   _5_
-/   \ /   \
+     3
+   /   \
+  1     5
+ / \   / \
 0   2 4   6
 
 3, 1, 5, 0, 2, 4, 6
