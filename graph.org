@@ -11,6 +11,9 @@
   - [[#bellman-fords-algorithm][Bellman Ford's algorithm]]
 - [[#strongly-connected-components][Strongly connected components]]
 - [[#topolgical-sort][Topolgical sort]]
+  - [[#dfs][DFS]]
+  - [[#bfs][BFS]]
+  - [[#complexities][Complexities]]
 
 * [[https://www.programiz.com/dsa/graph-adjacency-list][Adjacency list]]
 * [[https://www.programiz.com/dsa/graph-adjacency-matrix][Adjacency matrix]]
@@ -33,6 +36,13 @@ dfs(g, 0, set())
 : 0 1 2
 
 *** White-gray-black
+*** Complexities
+**** Time
+Time complexity is ~O(V + E)~ where ~V~ is the number of vertices and ~E~ is the number of edges
+
+**** Space
+Space complexity is ~O(V)~ where ~V~ is the number of vertices
+
 
 ** [[https://www.programiz.com/dsa/graph-bfs][Breadth-first]]
 #+begin_src python :results output
@@ -56,6 +66,16 @@ bfs(g, 0)
 
 #+RESULTS:
 : 0 1 2
+
+*** Complexities
+**** Time
+Time complexity is ~O(V + E)~ where ~V~ is the number of vertices and ~E~ is the number of edges
+
+**** Space
+Space complexity is ~O(V)~ where ~V~ is the number of vertices
+
+**** White-gray-black
+
 
 * Find shortest path
 ** [[https://www.programiz.com/dsa/dijkstra-algorithm][Dijkstra's algorithm]]
@@ -98,3 +118,71 @@ print(f"{cost=}, {path=}")
 - [[https://leetcode.com/problems/critical-connections-in-a-network/][Problem]]
 
 * [[https://leetcode.com/discuss/general-discussion/1078072/introduction-to-topological-sort][Topolgical sort]]
+** DFS
+#+begin_src python :results output
+from collections import deque
+
+
+def ts(graph):
+    n = len(graph)
+    res = deque()
+    visited = set()
+    def dfs(i):
+        visited.add(i)
+        for nei in graph[i]:
+            if nei not in visited:
+                dfs(nei)
+        res.appendleft(graph[i])
+    for u in range(n):
+        if u not in visited:
+            dfs(u)
+    return list(res)
+
+
+g = [[1], [], [0, 1]]
+print(ts(g))
+#+end_src
+
+#+RESULTS:
+: [[0, 1], [1], []]
+
+** BFS
+#+begin_src python :results output
+from collections import deque
+
+
+def ts(graph):
+    n = len(graph)
+    res = []
+    indegrees = [0] * n
+    q = deque()
+    for neighbours in graph:
+        for nei in neighbours:
+            indegrees[nei] += 1
+    for i, ind in enumerate(indegrees):
+        if ind == 0:
+            q.append(i)
+            res.append(graph[i])
+    while q:
+        u = q.popleft()
+        for v in graph[u]:
+            indegrees[v] -= 1
+            if indegrees[v] == 0:
+                q.append(v)
+                res.append(graph[v])
+    return res
+
+
+g = [[1], [], [0, 1]]
+print(ts(g))
+#+end_src
+
+#+RESULTS:
+: [[0, 1], [1], []]
+
+** Complexities
+*** Time
+Time complexity is ~O(V + E)~ where ~V~ is the number of vertices and ~E~ is the number of edges
+
+*** Space
+Space complexity is ~O(V)~ where ~V~ is the number of vertices
