@@ -105,7 +105,7 @@ def dijkstra(graph, fr, to):
     return float("inf"), None
 
 
-g = [[(6, 1), (2, 2)], [(2, 3)], [(3, 1), (5, 3)], []]
+g = [[(6, 1), (2, 2)], [(2, 3)], [(3, 1), (7, 3)], []]
 cost, path = dijkstra(g, 0, 3)
 print(f"{cost=}, {path=}")
 #+end_src
