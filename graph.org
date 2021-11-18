@@ -87,13 +87,13 @@ from heapq import heappop, heappush
 def dijkstra(graph, fr, to):
     q, visited, costs = [(0, fr, [])], set(), {fr: 0}
     while q:
-        (cost, u, path) = heappop(q)
+        cost, u, path = heappop(q)
         if u in visited:
             continue
         visited.add(u)
         path.append(u)
         if u == to:
-            return (cost, path)
+            return cost, path
         for c, v in graph[u]:
             if v in visited:
                 continue
