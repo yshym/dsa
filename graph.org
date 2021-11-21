@@ -13,6 +13,9 @@
 - [[#topolgical-sort][Topolgical sort]]
   - [[#implementation][Implementation]]
   - [[#complexities][Complexities]]
+- [[#disjoint-set-union][Disjoint Set Union]]
+  - [[#implementation-1][Implementation]]
+  - [[#complexities-1][Complexities]]
 
 * [[https://www.programiz.com/dsa/graph-adjacency-list][Adjacency list]]
 * [[https://www.programiz.com/dsa/graph-adjacency-matrix][Adjacency matrix]]
@@ -186,3 +189,49 @@ Time complexity is ~O(V + E)~ where ~V~ is the number of vertices and ~E~ is the
 
 *** Space
 Space complexity is ~O(V)~ where ~V~ is the number of vertices
+* Disjoint Set Union
+** Implementation
+#+begin_src python :session :results output
+class DSU:
+    def __init__(self, n):
+        self.p = list(range(n))
+
+    def find(self, x):
+        """Find parent element of the group"""
+        if self.p[x] != x:
+            self.p[x] = self.find(self.p[x])
+        return self.p[x]
+
+    def union(self, x, y):
+        """Merge two groups"""
+        xp = self.find(x)
+        yp = self.find(y)
+        self.p[xp] = yp
+
+
+dsu = DSU(6)
+dsu.union(1, 0)
+dsu.union(4, 3)
+dsu.union(3, 0)
+print(dsu.p)
+dsu.union(2, 5)
+dsu.union(5, 0)
+print(dsu.p)
+print([dsu.find(x) for x in dsu.p])
+#+end_src
+
+#+RESULTS:
+: [0, 0, 2, 0, 3, 5]
+: [0, 0, 5, 0, 3, 0]
+: [0, 0, 0, 0, 0, 0]
+
+** Complexities
+*** Time
+| Operation | Average Case | Worst Case |
+|-----------+--------------+------------|
+| Find      | O(log n)     | O(log n)   |
+| Union     | O(log n)     | O(log n)   |
+Where ~n~ is the number of elements
+
+*** Space
+The space complexity for all the operations is ~O(n)~, where ~n~ is the number of elements
