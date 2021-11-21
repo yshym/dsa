@@ -192,9 +192,12 @@ Space complexity is ~O(V)~ where ~V~ is the number of vertices
 * Disjoint Set Union
 ** Implementation
 #+begin_src python :session :results output
+from collections import defaultdict
+
+
 class DSU:
-    def __init__(self, n):
-        self.p = list(range(n))
+    def __init__(self):
+        self.p = {}
 
     def find(self, x):
         """Find parent element of the group"""
@@ -204,33 +207,44 @@ class DSU:
 
     def union(self, x, y):
         """Merge two groups"""
-        xp = self.find(x)
-        yp = self.find(y)
-        self.p[xp] = yp
+        self.p.setdefault(x, x)
+        self.p.setdefault(y, y)
+        xp, yp = self.find(x), self.find(y)
+        if xp != yp:
+            self.p[xp] = yp
+
+    @property
+    def groups(self):
+        """Return all groups"""
+        groups = defaultdict(list)
+        for k in self.p.keys():
+            groups[self.find(k)].append(k)
+        return groups
 
 
-dsu = DSU(6)
+dsu = DSU()
 dsu.union(1, 0)
 dsu.union(4, 3)
+print(dsu.groups)
 dsu.union(3, 0)
-print(dsu.p)
+print(dsu.groups)
 dsu.union(2, 5)
 dsu.union(5, 0)
-print(dsu.p)
-print([dsu.find(x) for x in dsu.p])
+print(dsu.groups)
 #+end_src
 
 #+RESULTS:
-: [0, 0, 2, 0, 3, 5]
-: [0, 0, 5, 0, 3, 0]
-: [0, 0, 0, 0, 0, 0]
+: defaultdict(<class 'list'>, {0: [1, 0], 3: [4, 3]})
+: defaultdict(<class 'list'>, {0: [1, 0, 4, 3]})
+: defaultdict(<class 'list'>, {0: [1, 0, 4, 3, 2, 5]})
 
 ** Complexities
 *** Time
-| Operation | Average Case | Worst Case |
-|-----------+--------------+------------|
-| Find      | O(log n)     | O(log n)   |
-| Union     | O(log n)     | O(log n)   |
+| Operation | Average Case | Worst Case  |
+|-----------+--------------+-------------|
+| Find      | O(log n)     | O(log n)    |
+| Union     | O(log n)     | O(log n)    |
+| Groups    | O(n log(n))  | O(n log(n)) |
 Where ~n~ is the number of elements
 
 *** Space
