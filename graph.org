@@ -11,8 +11,7 @@
   - [[#bellman-fords-algorithm][Bellman Ford's algorithm]]
 - [[#strongly-connected-components][Strongly connected components]]
 - [[#topolgical-sort][Topolgical sort]]
-  - [[#dfs][DFS]]
-  - [[#bfs][BFS]]
+  - [[#implementation][Implementation]]
   - [[#complexities][Complexities]]
 
 * [[https://www.programiz.com/dsa/graph-adjacency-list][Adjacency list]]
@@ -118,7 +117,8 @@ print(f"{cost=}, {path=}")
 - [[https://leetcode.com/problems/critical-connections-in-a-network/][Problem]]
 
 * [[https://leetcode.com/discuss/general-discussion/1078072/introduction-to-topological-sort][Topolgical sort]]
-** DFS
+** Implementation
+*** DFS
 #+begin_src python :results output
 from collections import deque
 
@@ -146,7 +146,7 @@ print(ts(g))
 #+RESULTS:
 : [[0, 1], [1], []]
 
-** BFS
+*** BFS
 #+begin_src python :results output
 from collections import deque
 
