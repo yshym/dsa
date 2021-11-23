@@ -21,6 +21,7 @@
 * [[https://www.programiz.com/dsa/graph-adjacency-matrix][Adjacency matrix]]
 * Search
 ** [[https://www.programiz.com/dsa/graph-dfs][Depth-first]]
+*** Implementation
 #+begin_src python :results output
 def dfs(graph, n, visited):
     visited.add(n)
@@ -37,7 +38,7 @@ dfs(g, 0, set())
 #+RESULTS:
 : 0 1 2
 
-*** White-gray-black
+**** White-gray-black
 *** Complexities
 **** Time
 Time complexity is ~O(V + E)~ where ~V~ is the number of vertices and ~E~ is the number of edges
@@ -47,6 +48,7 @@ Space complexity is ~O(V)~ where ~V~ is the number of vertices
 
 
 ** [[https://www.programiz.com/dsa/graph-bfs][Breadth-first]]
+*** Implementation
 #+begin_src python :results output
 from collections import deque
 
