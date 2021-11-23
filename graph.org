@@ -39,6 +39,32 @@ dfs(g, 0, set())
 : 0 1 2
 
 **** White-gray-black
+Detect cycles in a directed graph
+
+#+begin_src python :session :results output
+WHITE, GRAY, BLACK = 0, 1, 2 # unvisited, processing, safe
+
+
+def dfs(graph, u):
+    if colors[u] != WHITE:
+        return colors[u] == BLACK
+    colors[u] = GRAY
+    for v in graph[u]:
+        if colors[v] == GRAY or not dfs(graph, v):
+            return False
+    colors[u] = BLACK
+    return True
+
+
+g = [[1, 2], [3], [], [0]]
+n = len(g)
+colors = [0] * n
+print([dfs(g, i) for i in range(n)])
+#+end_src
+
+#+RESULTS:
+: [False, False, True, False]
+
 *** Complexities
 **** Time
 Time complexity is ~O(V + E)~ where ~V~ is the number of vertices and ~E~ is the number of edges
