@@ -155,15 +155,16 @@ print(f"{cost=}, {path=}")
 
 ** [[https://www.programiz.com/dsa/bellman-ford-algorithm][Bellman Ford's algorithm]]
 * Tarjan's algorithm
-Find strongly connected components in a directed graph
+Find strongly connected components in a graph
 
 ** Implementation
+*** Directed
 #+begin_src python :session :results output
 def tarjan(g):
     n = len(g)
     c = 0
-    ids = [-1] * n
-    low = [0] * n
+    ids = [None] * n
+    low = [None] * n
     stack = []
     on_stack = [False] * n
 
@@ -174,7 +175,7 @@ def tarjan(g):
         ids[u] = low[u] = c
         c += 1
         for v in g[u]:
-            if ids[v] == -1:
+            if ids[v] is None:
                 dfs(v)
             if on_stack[v]:
                 low[u] = min(low[u], low[v])
@@ -186,7 +187,7 @@ def tarjan(g):
                 break
 
     for i in range(n):
-        if ids[i] == -1:
+        if ids[i] is None:
             dfs(i)
 
     return low
@@ -198,6 +199,37 @@ print(tarjan(g))
 
 #+RESULTS:
 : [0, 0, 0, 3, 4, 4, 4, 3]
+
+*** Undirected
+#+begin_src python :session :results output
+def tarjan(g):
+    n = len(g)
+    p = [None] * n
+    ids = [None] * n
+    low = [None] * n
+    c = 0
+
+    def dfs(u):
+        nonlocal c
+        ids[u] = low[u] = c
+        c += 1
+        for v in g[u]:
+            if ids[v] is None:
+                p[v] = u
+                dfs(v)
+            if ids[v] is None or v != p[u]:
+                low[u] = min(low[u], low[v])
+
+    dfs(0)
+    return low
+
+
+g = [[1, 2], [0, 2, 3], [0, 1], [1]]
+print(tarjan(g))
+#+end_src
+
+#+RESULTS:
+: [0, 0, 0, 3]
 
 ** Complexities
 *** Time
