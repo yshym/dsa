@@ -17,13 +17,15 @@ graph is a data structure ~(V, E)~ that consists of:
 - [[#find-shortest-path][Find shortest path]]
   - [[#dijkstras-algorithm][Dijkstra's algorithm]]
   - [[#bellman-fords-algorithm][Bellman Ford's algorithm]]
-- [[#strongly-connected-components][Strongly connected components]]
-- [[#topolgical-sort][Topolgical sort]]
+- [[#tarjans-algorithm][Tarjan's algorithm]]
   - [[#implementation][Implementation]]
   - [[#complexities][Complexities]]
-- [[#disjoint-set-union][Disjoint Set Union]]
+- [[#topolgical-sort][Topolgical sort]]
   - [[#implementation-1][Implementation]]
   - [[#complexities-1][Complexities]]
+- [[#disjoint-set-union][Disjoint Set Union]]
+  - [[#implementation-2][Implementation]]
+  - [[#complexities-2][Complexities]]
 
 * [[https://www.programiz.com/dsa/graph-adjacency-list][Adjacency list]]
 * [[https://www.programiz.com/dsa/graph-adjacency-matrix][Adjacency matrix]]
@@ -152,8 +154,57 @@ print(f"{cost=}, {path=}")
 : cost=7, path=[0, 2, 1, 3]
 
 ** [[https://www.programiz.com/dsa/bellman-ford-algorithm][Bellman Ford's algorithm]]
-* Strongly connected components
-- [[https://leetcode.com/problems/critical-connections-in-a-network/][Problem]]
+* Tarjan's algorithm
+Find strongly connected components in a directed graph
+
+** Implementation
+#+begin_src python :session :results output
+def tarjan(g):
+    n = len(g)
+    c = 0
+    ids = [-1] * n
+    low = [0] * n
+    stack = []
+    on_stack = [False] * n
+
+    def dfs(u):
+        nonlocal c
+        on_stack[u] = True
+        stack.append(u)
+        ids[u] = low[u] = c
+        c += 1
+        for v in g[u]:
+            if ids[v] == -1:
+                dfs(v)
+            if on_stack[v]:
+                low[u] = min(low[u], low[v])
+        while ids[u] == low[u] and stack:
+            v = stack.pop()
+            on_stack[v] = False
+            low[v] = ids[u]
+            if v == u:
+                break
+
+    for i in range(n):
+        if ids[i] == -1:
+            dfs(i)
+
+    return low
+
+
+g = [[1], [2], [0], [4, 7], [5], [0, 6], [0, 2, 4], [3, 5]]
+print(tarjan(g))
+#+end_src
+
+#+RESULTS:
+: [0, 0, 0, 3, 4, 4, 4, 3]
+
+** Complexities
+*** Time
+Time complexity is ~O(V + E)~ where ~V~ is the number of vertices and ~E~ is the number of edges
+
+*** Space
+Space complexity is ~O(V)~ where ~V~ is the number of vertices
 
 * [[https://leetcode.com/discuss/general-discussion/1078072/introduction-to-topological-sort][Topolgical sort]]
 ** Implementation
