@@ -82,7 +82,6 @@ Time complexity is ~O(V + E)~ where ~V~ is the number of vertices and ~E~ is the
 **** Space
 Space complexity is ~O(V)~ where ~V~ is the number of vertices
 
-
 ** [[https://www.programiz.com/dsa/graph-bfs][Breadth-first]]
 *** Implementation
 #+begin_src python :results output
@@ -115,8 +114,6 @@ Time complexity is ~O(V + E)~ where ~V~ is the number of vertices and ~E~ is the
 Space complexity is ~O(V)~ where ~V~ is the number of vertices
 
 **** White-gray-black
-
-
 * Find shortest path
 ** [[https://www.programiz.com/dsa/dijkstra-algorithm][Dijkstra's algorithm]]
 *** Using heap
@@ -308,6 +305,7 @@ Time complexity is ~O(V + E)~ where ~V~ is the number of vertices and ~E~ is the
 
 *** Space
 Space complexity is ~O(V)~ where ~V~ is the number of vertices
+
 * Disjoint Set Union
 ** Implementation
 #+begin_src python :session :results output
