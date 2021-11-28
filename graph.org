@@ -33,12 +33,12 @@ graph is a data structure ~(V, E)~ that consists of:
 ** [[https://www.programiz.com/dsa/graph-dfs][Depth-first]]
 *** Implementation
 #+begin_src python :results output
-def dfs(graph, n, visited):
-    visited.add(n)
-    print(n, end=" ")
-    for nei in graph[n]:
-        if not nei in visited:
-            dfs(graph, nei, visited)
+def dfs(g, u, visited):
+    visited.add(u)
+    print(u, end=" ")
+    for v in g[u]:
+        if not v in visited:
+            dfs(g, v, visited)
 
 
 g = [[1, 2], [2], [0]]
@@ -55,12 +55,12 @@ Detect cycles in a directed graph
 WHITE, GRAY, BLACK = 0, 1, 2 # unvisited, processing, safe
 
 
-def dfs(graph, u):
+def dfs(g, u):
     if colors[u] != WHITE:
         return colors[u] == BLACK
     colors[u] = GRAY
-    for v in graph[u]:
-        if colors[v] == GRAY or not dfs(graph, v):
+    for v in g[u]:
+        if colors[v] == GRAY or not dfs(g, v):
             return False
     colors[u] = BLACK
     return True
@@ -88,15 +88,15 @@ Space complexity is ~O(V)~ where ~V~ is the number of vertices
 from collections import deque
 
 
-def bfs(graph, n):
-    visited, q = set([n]), deque([n])
-    while q:
-        v = q.popleft()
-        print(v, end=" ")
-        for nei in graph[v]:
-            if nei not in visited:
-                visited.add(nei)
-                q.append(nei)
+def bfs(g, i):
+    visited, dq = set([i]), deque([i])
+    while dq:
+        u = dq.popleft()
+        print(u, end=" ")
+        for v in g[u]:
+            if v not in visited:
+                visited.add(v)
+                dq.append(v)
 
 
 g = [[1, 2], [2], [0]]
@@ -121,7 +121,7 @@ Space complexity is ~O(V)~ where ~V~ is the number of vertices
 from heapq import heappop, heappush
 
 
-def dijkstra(graph, fr, to):
+def dijkstra(g, fr, to):
     q, visited, costs = [(0, fr, [])], set(), {fr: 0}
     while q:
         cost, u, path = heappop(q)
@@ -131,7 +131,7 @@ def dijkstra(graph, fr, to):
         path.append(u)
         if u == to:
             return cost, path
-        for c, v in graph[u]:
+        for c, v in g[u]:
             if v in visited:
                 continue
             pc = costs.get(v, float("inf"))
@@ -242,19 +242,19 @@ Space complexity is ~O(V)~ where ~V~ is the number of vertices
 from collections import deque
 
 
-def ts(graph):
-    n = len(graph)
+def ts(g):
+    n = len(g)
     res = deque()
     visited = set()
-    def dfs(i):
-        visited.add(i)
-        for nei in graph[i]:
-            if nei not in visited:
-                dfs(nei)
-        res.appendleft(graph[i])
-    for u in range(n):
-        if u not in visited:
-            dfs(u)
+    def dfs(u):
+        visited.add(u)
+        for v in g[u]:
+            if v not in visited:
+                dfs(v)
+        res.appendleft(g[u])
+    for i in range(n):
+        if i not in visited:
+            dfs(i)
     return list(res)
 
 
@@ -270,25 +270,25 @@ print(ts(g))
 from collections import deque
 
 
-def ts(graph):
-    n = len(graph)
+def ts(g):
+    n = len(g)
     res = []
     indegrees = [0] * n
-    q = deque()
-    for neighbours in graph:
+    dq = deque()
+    for neighbours in g:
         for nei in neighbours:
             indegrees[nei] += 1
     for i, ind in enumerate(indegrees):
         if ind == 0:
-            q.append(i)
-            res.append(graph[i])
-    while q:
-        u = q.popleft()
-        for v in graph[u]:
+            dq.append(i)
+            res.append(g[i])
+    while dq:
+        u = dq.popleft()
+        for v in g[u]:
             indegrees[v] -= 1
             if indegrees[v] == 0:
-                q.append(v)
-                res.append(graph[v])
+                dq.append(v)
+                res.append(g[v])
     return res
 
 
