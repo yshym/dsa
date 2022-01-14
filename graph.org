@@ -116,15 +116,16 @@ Space complexity is ~O(V)~ where ~V~ is the number of vertices
 **** White-gray-black
 * Find shortest path
 ** [[https://www.programiz.com/dsa/dijkstra-algorithm][Dijkstra's algorithm]]
-*** Using heap
+*** Implementation
+**** Heap
 #+begin_src python :results output
 from heapq import heappop, heappush
 
 
 def dijkstra(g, fr, to):
-    q, visited, costs = [(0, fr, [])], set(), {fr: 0}
-    while q:
-        cost, u, path = heappop(q)
+    h, visited, costs = [(0, fr, [])], set(), {fr: 0}
+    while h:
+        cost, u, path = heappop(h)
         if u in visited:
             continue
         visited.add(u)
@@ -138,7 +139,7 @@ def dijkstra(g, fr, to):
             nc = cost + c
             if nc < pc:
                 costs[v] = nc
-                heappush(q, (nc, v, path))
+                heappush(h, (nc, v, path))
     return float("inf"), None
 
 
