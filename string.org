@@ -52,10 +52,10 @@ print(kmp("hello", "ll"))
 
 ** Complexity
 *** Time
-Time complexity is ~O(M + N)~ where ~M~ is the length of a pattern and ~N~ is the length of a string. ~M + N~ is the case when ~M > N~, so it is possible to reach ~O(2N) == O(N)~ complexity by skipping such cases
+Time complexity is ~O(m + n)~ where ~m~ is the length of a pattern and ~n~ is the length of a string. ~m + n~ is the case when ~m > n~, so it is possible to reach ~O(2n) == O(n)~ complexity by skipping such cases
 
 *** Space
-Space complexity is ~O(M)~ where ~M~ is the length of the pattern
+Space complexity is ~O(m)~ where ~m~ is the length of the pattern
 
 * Rabin-Karp
 ** Implementation
@@ -94,8 +94,8 @@ print(rk("hello", "ll"))
 *** Time
 | Average Case | Worst Case |
 |--------------+------------|
-| O(M + N)     | O(MN)      |
-Where ~M~ is the length of a pattern and ~N~ is the length of a string.
+| O(m + n)     | O(mn)      |
+Where ~m~ is the length of a pattern and ~n~ is the length of a string.
 Worst case occurs when all characters of both the string and the pattern are same as the hash values of all substrings of the string match with the hash value of the pattern
 
 *** Space
