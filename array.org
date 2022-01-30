@@ -4,7 +4,9 @@
 - [[#binary-search][Binary Search]]
 - [[#permutations][Permutations]]
 - [[#combinations][Combinations]]
-- [[#intervals][Intervals]]
+- [[#quickselect][Quickselect]]
+  - [[#implementation][Implementation]]
+  - [[#complexities][Complexities]]
 
 * [[https://www.programiz.com/dsa/binary-search][Binary Search]]
 - [[https://leetcode.com/problems/binary-search/][Problem]]
@@ -21,4 +23,37 @@
 [1, 2, 3], 1 -> [(1,), (2), (3,)]
 #+end_example
 
-* Intervals
+* Quickselect
+** Implementation
+#+begin_src python :results output
+def quickselect(nums, k, l, r):
+    pivot, p = nums[r], l
+    for i in range(l, r):
+        if nums[i] <= pivot:
+            nums[i], nums[p] = nums[p], nums[i]
+            p += 1
+    nums[p], nums[r] = pivot, nums[p]
+    if p > k:
+        return quickselect(nums, k, l, p - 1)
+    if p < k:
+        return quickselect(nums, k, p + 1, r)
+    return nums[p]
+
+
+nums, k = [3, 2, 1, 5, 6, 4], 2
+n = len(nums)
+print(quickselect(nums, k - 1, 0, n - 1))
+#+end_src
+
+#+RESULTS:
+: 2
+
+** Complexities
+*** Time
+| Average case | Worst Case |
+|--------------+------------|
+| O(n)         | O(n ^ 2)   |
+Where ~n~ is the number of elements in a list
+
+*** Space
+Space complexity is ~O(n)~ where n is the number of elements in a list
