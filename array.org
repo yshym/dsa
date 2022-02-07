@@ -10,6 +10,8 @@
   - [[#insertion-sort][Insertion sort]]
   - [[#counting-sort][Counting sort]]
   - [[#quicksort][Quicksort]]
+  - [[#merge-sort][Merge sort]]
+  - [[#bucket-sort][Bucket sort]]
 - [[#quickselect][Quickselect]]
   - [[#implementation][Implementation]]
   - [[#complexities][Complexities]]
@@ -159,6 +161,7 @@ def quicksorted(nums):
     do_quicksorted(nums, 0, n - 1)
     return nums
 
+
 nums = [5, 2, 3, 0, 4, 1]
 print(quicksorted(nums))
 #+end_src
@@ -175,6 +178,91 @@ Where ~n~ is the number of elements is the list
 
 **** Space
 Space complexity is ~O(1)~
+
+** Merge sort
+*** Implementation
+#+begin_src python :results output
+def mergesorted(nums):
+    def merge(left, right):
+        ln, rn = len(left), len(right)
+        merged = []
+        i = j = 0
+        while i < ln and j < rn:
+            if left[i] <= right[j]:
+                merged.append(left[i])
+                i += 1
+            else:
+                merged.append(right[j])
+                j += 1
+        return merged + (left[i:] if j == rn else right[j:])
+
+    n = len(nums)
+    if n == 1:
+        return nums
+    mid = n // 2
+    left, right = mergesorted(nums[:mid]), mergesorted(nums[mid:])
+    return merge(left, right)
+
+
+nums = [5, 2, 3, 0, 4, 1]
+print(mergesorted(nums))
+#+end_src
+
+#+RESULTS:
+: [0, 1, 2, 3, 4, 5]
+
+*** Complexities
+**** Time
+Time complexity is ~O(n log(n))~ where ~n~ is the number of elements is the list
+
+**** Space
+Space complexity is ~O(n)~
+
+** Bucket sort
+*** Implementation
+#+begin_src python :results output
+def bucket_sorted(nums):
+    def insertion_sorted(nums):
+        n = len(nums)
+        for i in range(1, n):
+            num = nums[i]
+            j = i - 1
+            while j >= 0 and nums[j] > num:
+                nums[j + 1] = nums[j]
+                j -= 1
+            nums[j + 1] = num
+        return nums
+
+    mi = min(nums)
+    k = max(nums) - mi
+    m = int(k ** 1 / 2)
+    buckets = [[] for _ in range(m)]
+    res = []
+    if k == 0:
+        return nums
+    for num in nums:
+        buckets[(m - 1) * (num - mi) // k].append(num)
+    for bucket in buckets:
+        res.extend(insertion_sorted(bucket))
+    return res
+
+
+nums = [5, 2, 3, 0, 4, 1]
+print(bucket_sorted(nums))
+#+end_src
+
+#+RESULTS:
+: [0, 1, 2, 3, 4, 5]
+
+*** Complexities
+**** Time
+| Average Case | Worst Case |
+|--------------+------------|
+| O(n)         | O(n ^ 2)   |
+Where ~n~ is the number of elements is the list
+
+**** Space
+Space complexity is ~O(n)~
 
 * Quickselect
 ** Implementation
