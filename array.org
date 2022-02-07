@@ -4,6 +4,8 @@
 - [[#permutations][Permutations]]
 - [[#combinations][Combinations]]
 - [[#binary-search][Binary Search]]
+  - [[#implementation][Implementation]]
+  - [[#complexities][Complexities]]
 - [[#sorting][Sorting]]
   - [[#selection-sort][Selection sort]]
   - [[#bubble-sort][Bubble sort]]
@@ -13,8 +15,8 @@
   - [[#merge-sort][Merge sort]]
   - [[#bucket-sort][Bucket sort]]
 - [[#quickselect][Quickselect]]
-  - [[#implementation][Implementation]]
-  - [[#complexities][Complexities]]
+  - [[#implementation-1][Implementation]]
+  - [[#complexities-1][Complexities]]
 
 * Permutations
 #+begin_example
@@ -28,8 +30,59 @@
 [1, 2, 3], 1 -> [(1,), (2), (3,)]
 #+end_example
 
-* [[https://www.programiz.com/dsa/binary-search][Binary Search]]
-- [[https://leetcode.com/problems/binary-search/][Problem]]
+* Binary Search
+** Implementation
+*** Iterative
+#+begin_src python :results output
+def bs(nums, target):
+    l, r = 0, len(nums)
+    while l < r:
+        m = (l + r) // 2
+        if target < nums[m]:
+            r = m
+        elif target > nums[m]:
+            l = m + 1
+        else:
+            return m
+    return -1
+
+
+nums = range(5)
+print(bs(nums, 2))
+#+end_src
+
+#+RESULTS:
+: 2
+
+*** Recursive
+#+begin_src python :results output
+def bs(nums, target):
+    def do_bs(l, r):
+        if l >= r:
+            return -1
+        m = (l + r) // 2
+        if target < nums[m]:
+            return do_bs(l, m)
+        if target > nums[m]:
+            return do_bs(m + 1, r)
+        return m
+
+    return do_bs(0, len(nums))
+
+
+nums = range(5)
+print(bs(nums, 2))
+#+end_src
+
+#+RESULTS:
+: 2
+
+** Complexities
+*** Time
+Time complexity is ~O(log n)~ where ~n~ is the length of the list
+
+*** Space
+Space complexity is ~O(1)~
 
 * Sorting
 ** Selection sort
