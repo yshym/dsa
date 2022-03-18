@@ -272,7 +272,7 @@ print(mergesorted(nums))
 Time complexity is ~O(n log(n))~ where ~n~ is the number of elements is the list
 
 **** Space
-Space complexity is ~O(n)~
+Space complexity is ~O(n)~ where ~n~ is the number of elements is the list
 
 ** Bucket sort
 *** Implementation
