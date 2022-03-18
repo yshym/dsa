@@ -230,7 +230,10 @@ print(quicksorted(nums))
 Where ~n~ is the number of elements is the list
 
 **** Space
-Space complexity is ~O(1)~
+| Average Case | Worst Case |
+|--------------+------------|
+| O(log n)     | O(n)       |
+Where ~n~ is the number of elements is the list
 
 ** Merge sort
 *** Implementation
