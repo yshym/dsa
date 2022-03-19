@@ -215,7 +215,7 @@ def tarjan(g):
             if ids[v] is None:
                 p[v] = u
                 dfs(v)
-            if ids[v] is None or v != p[u]:
+            if v != p[u]:
                 low[u] = min(low[u], low[v])
 
     dfs(0)
