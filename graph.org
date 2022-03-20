@@ -316,6 +316,7 @@ from collections import defaultdict
 class DSU:
     def __init__(self):
         self.p = {}
+        self.rank = {}
 
     def find(self, x):
         """Find parent element of the group"""
@@ -323,13 +324,27 @@ class DSU:
             self.p[x] = self.find(self.p[x])
         return self.p[x]
 
+    def _add(self, x):
+        if x in self.p:
+            return False
+        self.p[x] = x
+        self.rank[x] = 1
+        return True
+
     def union(self, x, y):
         """Merge two groups"""
-        self.p.setdefault(x, x)
-        self.p.setdefault(y, y)
+        self._add(x)
+        self._add(y)
         xp, yp = self.find(x), self.find(y)
-        if xp != yp:
+        if xp == yp:
+            return False
+        if self.rank[yp] > self.rank[xp]:
             self.p[xp] = yp
+            self.rank[yp] += self.rank[xp]
+        else:
+            self.p[yp] = xp
+            self.rank[xp] += self.rank[yp]
+        return True
 
     @property
     def groups(self):
@@ -352,9 +367,9 @@ print(dsu.groups)
 #+end_src
 
 #+RESULTS:
-: defaultdict(<class 'list'>, {0: [1, 0], 3: [4, 3]})
-: defaultdict(<class 'list'>, {0: [1, 0, 4, 3]})
-: defaultdict(<class 'list'>, {0: [1, 0, 4, 3, 2, 5]})
+: defaultdict(<class 'list'>, {1: [1, 0], 4: [4, 3]})
+: defaultdict(<class 'list'>, {4: [1, 0, 4, 3]})
+: defaultdict(<class 'list'>, {4: [1, 0, 4, 3, 2, 5]})
 
 ** Complexities
 *** Time
