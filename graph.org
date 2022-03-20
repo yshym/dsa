@@ -316,7 +316,7 @@ from collections import defaultdict
 class DSU:
     def __init__(self):
         self.p = {}
-        self.rank = {}
+        self.ranks = {}
 
     def find(self, x):
         """Find parent element of the group"""
@@ -328,7 +328,7 @@ class DSU:
         if x in self.p:
             return False
         self.p[x] = x
-        self.rank[x] = 1
+        self.ranks[x] = 1
         return True
 
     def union(self, x, y):
@@ -338,12 +338,12 @@ class DSU:
         xp, yp = self.find(x), self.find(y)
         if xp == yp:
             return False
-        if self.rank[yp] > self.rank[xp]:
+        if self.ranks[yp] > self.ranks[xp]:
             self.p[xp] = yp
-            self.rank[yp] += self.rank[xp]
+            self.ranks[yp] += self.ranks[xp]
         else:
             self.p[yp] = xp
-            self.rank[xp] += self.rank[yp]
+            self.ranks[xp] += self.ranks[yp]
         return True
 
     @property
