@@ -70,16 +70,16 @@ class BST:
             root.left = cls.delete(root.left, val)
         elif val > root.val:
             root.right = cls.delete(root.right, val)
+        # if the node has one child or no children
+        elif not root.left or not root.right:
+            return root.left or root.right
+        # if the node has two children
         else:
-            # if the node has one child or no children
-            if not root.left or not root.right:
-                temp = root.right if not root.left else root.left
-                root = None
-                return temp
-            # if the node has two children
-            # place the inorder successor in position of the node to be deleted
+            # get the inorder successor
             suc = cls._inorder_successor(root.right)
+            # copy the value of the inorder successor to the node
             root.val = suc.val
+            # delete the inorder successor
             root.right = cls.delete(root.right, suc.val)
         return root
 
