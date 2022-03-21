@@ -277,10 +277,11 @@ print(f"Prefix 'back' exists: {trie.starts_with('back')}")
 *** Time
 | Operation   | Average Case | Worst Case |
 |-------------+--------------+------------|
-| Search      | O(s)         | O(s)       |
-| Insertion   | O(s)         | O(s)       |
-| Starts With | O(p)         | O(p)       |
-Where ~s~ is the length of the string and ~p~ is the length of the prefix
+| Search      | O(m)         | O(m)       |
+| Insertion   | O(m)         | O(m)       |
+| Deletion    | O(m)         | O(m)       |
+| Starts With | O(m)         | O(m)       |
+Where ~m~ is the length of the string
 
 *** Space
 The space complexity for all the operations is ~O(n)~, where ~n~ is number of nodes
