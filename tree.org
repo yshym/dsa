@@ -215,23 +215,23 @@ class Trie:
             t = t.children[c]
         t.is_word = True
 
-    def _delete_helper(self, t: Trie, word: str, i: int) -> bool:
-        c = word[i]
-        if not c in t.children:
-            return False
-        ct = t.children[c]
-        # last char and end of a word
-        if i == len(word) - 1 and ct.is_word:
-            t.children.pop(c)
-            return not ct.children
-        if self._delete_helper(ct, word, i + 1) and not ct.children:
-            t.children.pop(c)
-            return True
-        return False
-
     def delete(self, word: str) -> None:
         """Delete a word."""
-        self._delete_helper(self, word, 0)
+        p = self
+        stack = [p]
+        chars = list(word)
+        for c in word:
+            stack.append(p.children[c])
+            p = p.children[c]
+        p = stack.pop()
+        if not p.is_word:
+            return
+        p.is_word = False
+        while stack:
+            p = stack.pop()
+            c = chars.pop()
+            if not p.children[c].children:
+                del p.children[c]
 
     def search(self, word: str) -> bool:
         """Search for a word."""
